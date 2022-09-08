@@ -13,14 +13,13 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    @GetMapping("/{message}")
-    public String sendMessage(@PathVariable String message) {
-
+    @PostMapping("/message")
+    public String sendMessage(@RequestBody Student message) {
         try {
             kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "Message sent succuessfully";
+        return "json message sent succuessfully";
     }
 }
