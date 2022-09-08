@@ -1,25 +1,23 @@
-package com.example.kafka;
+package com.example.kafka.kafka;
 
 import com.example.kafka.constrant.ApplicationConstant;
+import com.example.kafka.model.Student;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.*;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootApplication
-public class KafkaApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(KafkaApplication.class, args);
-	}
-
+public class SpringKafkaConfig {
     @Bean
     public ConsumerFactory<String, String> consumingEventStringMessage() {
         Map<String, Object> configMap = new HashMap<>();
@@ -36,5 +34,4 @@ public class KafkaApplication {
         factory.setConsumerFactory(consumingEventStringMessage());
         return factory;
     }
-
 }
